@@ -155,9 +155,16 @@ docker-compose up --build
 
 ---
 
-## Swagger UI
+## Swagger / OpenAPI
 
-Disponible en: `http://localhost:8083/swagger-ui.html`
+| | Link |
+|---|---|
+| **Swagger UI (local)** | [http://localhost:8083/swagger-ui.html](http://localhost:8083/swagger-ui.html) |
+| **OpenAPI JSON (local)** | [http://localhost:8083/api-docs](http://localhost:8083/api-docs) |
+| **swagger.json (repo)** | [ver en GitHub](https://github.com/ayni-01/ayni-retos-service/blob/main/swagger.json) |
+| **Swagger Editor (online)** | [abrir en Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/ayni-01/ayni-retos-service/main/swagger.json) |
+
+> Para probar los endpoints protegidos: copia el JWT del login → clic en **Authorize** → pega `Bearer <tu-token>`.
 
 ---
 

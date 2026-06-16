@@ -1,0 +1,204 @@
+{
+  "info": {
+    "name": "Somos Ayni — retos-service",
+    "description": "Endpoints del retos-service (puerto 8083). Requiere JWT de identidad-service (puerto 8081).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "BASE_IDENTIDAD",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "BASE_PERFILES",
+      "value": "http://localhost:8082"
+    },
+    {
+      "key": "BASE_RETOS",
+      "value": "http://localhost:8083"
+    },
+    {
+      "key": "BASE_POSTULACIONES",
+      "value": "http://localhost:8084"
+    },
+    {
+      "key": "BASE_HABILIDADES",
+      "value": "http://localhost:8085"
+    },
+    {
+      "key": "BASE_NOTIFICACIONES",
+      "value": "http://localhost:8086"
+    },
+    {
+      "key": "BASE_METRICAS",
+      "value": "http://localhost:8087"
+    },
+    {
+      "key": "TOKEN_EMPRESA",
+      "value": ""
+    },
+    {
+      "key": "TOKEN_TALENTO",
+      "value": ""
+    },
+    {
+      "key": "ID_EMPRESA",
+      "value": ""
+    },
+    {
+      "key": "ID_TALENTO",
+      "value": ""
+    },
+    {
+      "key": "RETO_ID",
+      "value": ""
+    },
+    {
+      "key": "POSTULACION_ID",
+      "value": ""
+    },
+    {
+      "key": "NOTIFICACION_ID",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Publicar Reto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN_EMPRESA}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_RETOS}}/api/v1/retos",
+          "host": [
+            "{{BASE_RETOS}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "retos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"titulo\":\"API REST con Spring Boot\",\"descripcion\":\"Crear API con JWT y Swagger\",\"empresaId\":\"{{ID_EMPRESA}}\",\"modalidad\":\"REMOTO\",\"duracionDias\":30}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var r=pm.response.json();pm.collectionVariables.set(\"RETO_ID\",r.id);pm.test(\"201\",()=>pm.response.to.have.status(201));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Listar Retos",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN_TALENTO}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_RETOS}}/api/v1/retos",
+          "host": [
+            "{{BASE_RETOS}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "retos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cerrar Reto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN_EMPRESA}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_RETOS}}/api/v1/retos/{{RETO_ID}}/cerrar",
+          "host": [
+            "{{BASE_RETOS}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "retos",
+            "{{RETO_ID}}",
+            "cerrar"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Duplicar Reto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN_EMPRESA}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_RETOS}}/api/v1/retos/{{RETO_ID}}/duplicar",
+          "host": [
+            "{{BASE_RETOS}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "retos",
+            "{{RETO_ID}}",
+            "duplicar"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_RETOS}}/actuator/health",
+          "host": [
+            "{{BASE_RETOS}}"
+          ],
+          "path": [
+            "actuator",
+            "health"
+          ]
+        }
+      }
+    }
+  ]
+}
